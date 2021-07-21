@@ -3,8 +3,8 @@
 #include <string.h>
 
 // global variables 
-char* sys_username = "admkevinj"; 
-char* sys_password = "password123"; 
+//char* sys_username = "admkevinj"; 
+//char* sys_password = "password123"; 
 
 #define prefix 189453; 
 
@@ -41,9 +41,20 @@ void imp_message(char* message) {printf("[!!] %s\n", message); }
 // check function
 int check_keys(char* key1, char* key2) {
 	// 1.1) check for the first character in string 
-	int first_char = (int) key1[0]; 
-	printf("%d", first_char); 
+	
+	if (sizeof(key1) < 3) return 0; 
 
+	int first_char = (int) key1[0]; 
+	int first_result = first_char * one_margin_1; 
+	
+	int 
+
+	if (first_result == 970)
+		printf("Good!");
+	else
+		printf("Not good!");
+	printf ("%d\n", first_result); 
+	
 	return 1; 
 }
 
