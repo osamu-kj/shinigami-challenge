@@ -3,10 +3,10 @@
 #include <string.h>
 
 // global variables 
-//char* sys_username = "admkevinj"; 
-//char* sys_password = "password123"; 
+//char* sys_username = "DEVILJSDFO!#r)=(r#j)#rkorjs"; 
+//char* sys_password = "J)OSKJDFdj)dj#$$opjko$ijRJRJfj()WJrWS"; 
 
-#define prefix 189453; 
+#define prefix 189453 
 
 // defines 
 #define one_margin_1 10 
@@ -14,11 +14,13 @@
 #define three_margin_1 984 
 #define four_margin_1 (one_margin_1 - three_margin_1 * (0 - two_margin_1))
 
-#define one_margin_2 one_margin_1 * two_margin_1 * prefix; 
-#define two_margin_2 (prefix % two_margin_1) * one_margin_2; 
-#define three_margin_2 ((((prefix && prefix) * prefix ) / prefix) * prefix) - one_margin_1 + (two_margin_1 * four_margin_1) / one_margin_2;
-#define four_margin_2 (four_margin_1 % one_margin_2) - one_margin_2 * ((two_margin_2 % three_margin_2) * four_margin_1);
-#define five_margin_2 (one_margin_2 * two_margin_2) && (one_margin_2 * two_margin_2) / (four_margin_2 + ((one_margin_1 * four_margin_1) / prefix) + one_margin_1) * prefix;
+#define one_margin_2 ((one_margin_1 * two_margin_1 * prefix) % four_margin_1 + four_margin_1)
+#define two_margin_2 (((prefix % two_margin_1) * one_margin_2) & one_margin_2 + four_margin_1)
+#define three_margin_2 (((((prefix && prefix) * prefix ) / prefix) + prefix) % four_margin_1 + four_margin_1 - one_margin_1 + (two_margin_1 * four_margin_1) / one_margin_2)
+#define four_margin_2 ((four_margin_1 % one_margin_2) - one_margin_2 * ((two_margin_2 % three_margin_2) / four_margin_1)) / one_margin_2 + four_margin_1
+#define five_margin_2 ((one_margin_2 + two_margin_2 + (24 * four_margin_1)) + (one_margin_2 / two_margin_2) / (four_margin_2 + ((one_margin_1 * four_margin_1) / prefix) + one_margin_1) * prefix)
+
+int sequence[5] = {1,4,2,5,6};
 
 // functions 
 void output_line() {printf("--------------------------------------------------------------------------------------------\n");}
@@ -55,26 +57,54 @@ int get_codes (char *string, int start, int end) {
 
 int get_odd_codes(char *string) {
 	int result = 0; 
-	for (int i = 0; i < sizeof(string); i++) {result += (int) string[i]; i++;}
+	for (int i = 0; i < strlen(string); i++) {result += (int) string[i]; i++;}
 	return result; 
 }
 
+int get_plus_odd_codes(char *string) {
+	int result = 0; 
+	for (int i = 1; i < strlen(string); i++) {result += (int) string[i]; i++;}
+	return result; 
+}
+
+int get_all_codes(char *string) {
+	int result = 0; 
+	for (int i = 0; i < strlen(string); i++) {result += (int) string[i];}
+	return result; 
+}
+
+int positive_out(int num) { int tmp = num; tmp = (tmp - num) + num; return tmp;}
+
 // check function
 int check_keys(char* key1, char* key2) {
-	// 1.1) check for the first character in string 
 	
-	if (sizeof(key1) < 3) return 0; 
+	if (strlen(key1) < 3 || strlen(key2) < 5) return 0; 
 
 	int first_char = (int) key1[0]; 
 	int first_result = first_char * one_margin_1; 
 	
 	int second_result = get_codes(key1, 2, 3) * two_margin_1;
 
-	int third_result = get_codes(key1, 4, sizeof(key1)) * three_margin_1; 
+	int third_result = get_codes(key1, 4, strlen(key1)) * three_margin_1; 
 
 	int fourth_result = get_odd_codes(key1) * four_margin_1; 
 
-	if (first_result == 970 && second_result == 51205 && third_result == 532344 && fourth_result == 99329080) return 1; 
+	// DEBUG STUFF 
+	// printf(" - %d\n - %d\n - %d\n - %d\n", first_result, second_result, third_result, fourth_result);
+	// printf(" ----- \n");
+	
+	
+	// password checks 
+	int one_layer_password = get_codes(key2, 1, 5) * one_margin_2;
+	int two_layer_password = get_codes(key2, strlen(key2)-4, strlen(key2)) * two_margin_2;
+	int three_layer_password = get_odd_codes(key2) * three_margin_2; 
+	int four_layer_password = get_all_codes(key2) * four_margin_2; 
+	int five_layer_password = get_plus_odd_codes(key2) * five_margin_2;
+
+	// SOME MORE DEBUG STUFF 
+	// printf(" - %d\n - %d\n - %d\n - %d\n - %d\n", one_layer_password, two_layer_password, three_layer_password, four_layer_password, five_layer_password);
+
+	if (first_result == 680 && second_result == 41405 && third_result == 3475488 && fourth_result == 455901190 && one_layer_password == 116535650 && two_layer_password == 286785536 && three_layer_password == 406177447 && four_layer_password == 242600 && five_layer_password == 2007353218) return 1; 
 	else return 0;
 	return 0; 
 }
