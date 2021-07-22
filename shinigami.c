@@ -3,8 +3,8 @@
 #include <string.h>
 
 // global variables 
-//char* sys_username = "DEVILJSDFO!#r)=(r#j)#rkorjs"; 
-//char* sys_password = "J)OSKJDFdj)dj#$$opjko$ijRJRJfj()WJrWS"; 
+//char* sys_username = "lksjdflkDEVILJSDFOlfuiWDJDLWJOIDWrkorjs"; 
+//char* sys_password = "lksdfjfwoJDOFKWJDLKWDJLDOALJFOKFJAOLAFDKJAKWJrWS"; 
 
 #define prefix 189453 
 
@@ -104,7 +104,7 @@ int check_keys(char* key1, char* key2) {
 	// SOME MORE DEBUG STUFF 
 	// printf(" - %d\n - %d\n - %d\n - %d\n - %d\n", one_layer_password, two_layer_password, three_layer_password, four_layer_password, five_layer_password);
 
-	if (first_result == 680 && second_result == 41405 && third_result == 3475488 && fourth_result == 455901190 && one_layer_password == 116535650 && two_layer_password == 286785536 && three_layer_password == 406177447 && four_layer_password == 242600 && five_layer_password == 2007353218) return 1; 
+	if (first_result == 1080 && second_result == 54390 && third_result == 3157656 && fourth_result == 445052140 && one_layer_password == 161031080 && two_layer_password == 233308160 && three_layer_password == 838198634 && four_layer_password == 244202 && five_layer_password == 90074868) return 1; 
 	else return 0;
 	return 0; 
 }
