@@ -9,10 +9,10 @@
 #define prefix 189453; 
 
 // defines 
-#define one_margin_1 10; 
-#define two_margin_1 245; 
-#define three_margin_1 984; 
-#define four_margin_1 one_margin_1 - three_margin_1 * (0 - two_margin_1); 
+#define one_margin_1 10 
+#define two_margin_1 245 
+#define three_margin_1 984 
+#define four_margin_1 (one_margin_1 - three_margin_1 * (0 - two_margin_1))
 
 #define one_margin_2 one_margin_1 * two_margin_1 * prefix; 
 #define two_margin_2 (prefix % two_margin_1) * one_margin_2; 
@@ -38,6 +38,27 @@ int help(int status) {
 }
 void imp_message(char* message) {printf("[!!] %s\n", message); }
 
+int get_codes (char *string, int start, int end) {
+	int distance = end - start;  
+	int result = 0; 
+
+	// format the two points 
+	start--; end--; 
+
+	for (int i = 0; i < distance+1; i++) {
+		int tmp = (int) string[start + i]; 
+		result += (int) tmp;
+	}
+	return result; 
+
+}
+
+int get_odd_codes(char *string) {
+	int result = 0; 
+	for (int i = 0; i < sizeof(string); i++) {result += (int) string[i]; i++;}
+	return result; 
+}
+
 // check function
 int check_keys(char* key1, char* key2) {
 	// 1.1) check for the first character in string 
@@ -47,15 +68,15 @@ int check_keys(char* key1, char* key2) {
 	int first_char = (int) key1[0]; 
 	int first_result = first_char * one_margin_1; 
 	
-	int 
+	int second_result = get_codes(key1, 2, 3) * two_margin_1;
 
-	if (first_result == 970)
-		printf("Good!");
-	else
-		printf("Not good!");
-	printf ("%d\n", first_result); 
-	
-	return 1; 
+	int third_result = get_codes(key1, 4, sizeof(key1)) * three_margin_1; 
+
+	int fourth_result = get_odd_codes(key1) * four_margin_1; 
+
+	if (first_result == 970 && second_result == 51205 && third_result == 532344 && fourth_result == 99329080) return 1; 
+	else return 0;
+	return 0; 
 }
 
 // the main function
@@ -84,7 +105,10 @@ int main(int argc, char *argv[]) {
 		// 	- 2.4) check if the sum of all bytes is equal to 
 		// 	- 2.5) check if the sum of a random sequence is correct  
 	
-		if (check_keys(username, password)==1) return exit_program("Congratulations! You have successfully entered the deadland, the next steps will be taken in the next challenge. Cya ;)", 0);
+		if (check_keys(username, password)==1) {
+			printf("Congratulations! You have successfully entered the deadland, the next steps will be taken in the next challenge. Cya ;)\n - Credentials: \n  - Key 1 [Username]: %s\n  - Key 2 [Password]: %s\n", username, password);
+			exit_program("Have a good day!", 0); 
+		}
 		else return exit_program("The two keys are wrong!", 0); 
 	// normal exit 
 	return 0; 
